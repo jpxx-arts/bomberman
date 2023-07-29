@@ -44,28 +44,54 @@ class Grid{
     addPlayer(num){
         switch (num){
             case 1:
-                this._grid[0][0] = '@';
+                this._grid[0][0] = this._blocks[3];
                 break;
             case 2:
-                this._grid[this._width - 1][this._height - 1] = '@';
+                this._grid[this._width - 1][this._height - 1] = this._blocks[3];
                 break;
         }
     }
 
     updatePlayerPosition(oldX, oldY, x, y){
-        this._grid[oldX][oldY] = ' ';
-        this._grid[x][y] = '@';
+        this._grid[oldX][oldY] = this._blocks[0];
+        this._grid[x][y] = this._blocks[3];
     }
 
     printGrid(){
-        for(let i = 0; i < this._height; i++){
+        for(let j = 0; j < this._height; j++){
             let row = '|';
-            for(let j = 0; j < this._width; j++){
-                row += this._grid[j][i];
+            for(let i = 0; i < this._width; i++){
+                row += this._grid[i][j];
             }
             row += '|';
             console.log(row);
         }
+    }
+
+    runGrid(context){
+        for(let i = 0; i < this._width; i++){
+            for(let j = 0; j < this._height; j++){
+                switch(this._grid[i][j]){
+                    case ' ':
+                        context.fillStyle = 'green';
+                        context.fillRect(i, j, 1, 1);
+                        break;
+                    
+                    case '@':
+                        context.fillStyle = 'yellow';
+                        context.fillRect(i, j, 1, 1);
+                        break;
+                    case 'X':
+                        context.fillStyle = 'grey';
+                        context.fillRect(i, j, 1, 1);
+                        break;
+                    case '#':
+                        context.fillStyle = 'brown';
+                        context.fillRect(i, j, 1, 1);
+                        break;
+                }
+            }
+        }       
     }
 }
 

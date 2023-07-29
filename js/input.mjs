@@ -30,6 +30,27 @@ class CheckInput {
           break;
       }
     }
+
+    inputMovement(players, grid) {
+      switch(this.lastKey){
+        case 'PRESS up':
+          players[0].walk('up', grid);
+          break;
+
+        case 'PRESS down':
+          players[0].walk('down', grid);
+          break;
+
+        case 'PRESS right':
+          players[0].walk('right', grid);
+          break;
+
+        case 'PRESS left':
+          players[0].walk('left', grid);
+          break;
+      }
+    }
+
   }
   
   export default CheckInput;

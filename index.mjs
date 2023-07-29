@@ -2,35 +2,28 @@ import Grid from "./js/grid.mjs";
 import CheckInput from "./js/input.mjs";
 import Player from "./js/player.mjs";
 
-const g = new Grid(13, 9);
-const p1 = new Player(1, g);
-// const players = [p1];
+const grid = new Grid(13, 9);
+const p1 = new Player(1, grid);
+const players = [p1];
 const keyboard = new CheckInput();
-// p1.walk('right', g);
-// p1.walk('left', g);
-// p1.walk('down', g);
-// p1.walk('up', g);
 
-g.printGrid();
+p1.walk('right', grid);
 
-function gameLoop(player, keyboard, grid){
-    switch(keyboard.lastKey){
-        case 'PRESS up':
-            player.walk('up', grid);
-            break;
-        case 'PRESS down':
-            player.walk('down', grid);
-            break;
-        case 'PRESS right':
-            player.walk('right', grid);
-            break;
-        case 'PRESS left':
-            player.walk('left', grid);
-            break;
-    }
+const screen = document.getElementById('gameWindow');
+const context = screen.getContext('2d');
 
-    console.clear();
-    grid.printGrid();
+screen.width = grid._width;
+screen.height = grid._height;
+
+function gameLoop(players, keyboard, grid, context){
+    grid.runGrid(context);
+    keyboard.inputMovement(players, grid);
+    console.log(keyboard.lastKey);
+    
+
+    requestAnimationFrame(() => gameLoop(players, keyboard, grid, context));
 }
 
-setInterval(gameLoop, 100, p1, keyboard, g);
+document.addEventListener('DOMContentLoaded', () => {
+    gameLoop(players, keyboard, grid, context);
+});
