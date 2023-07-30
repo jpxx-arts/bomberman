@@ -28,6 +28,9 @@ class CheckInput {
         case "ArrowDown":
           this.lastKey = `${actionType} down`;
           break;
+
+        case " ":
+          this.lastKey = `${actionType} space`;
       }
     }
 
@@ -50,6 +53,11 @@ class CheckInput {
 
         case 'PRESS left':
           players[0].walk('left', grid);
+          this.lastKey = null;
+          break;
+
+        case 'PRESS space':
+          players[0].putBomb(grid);
           this.lastKey = null;
           break;
       }

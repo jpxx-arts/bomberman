@@ -10,14 +10,14 @@ const keyboard = new CheckInput();
 const screen = document.getElementById('gameWindow');
 const context = screen.getContext('2d');
 
-screen.width = grid._width;
-screen.height = grid._height;
+screen.width = grid.width;
+screen.height = grid.height;
 
 function gameLoop(players, keyboard, grid, context){
     grid.runGrid(context);
     keyboard.inputMovement(players, grid);
-    console.log(keyboard.lastKey);
     
+    grid.printGrid();
 
     requestAnimationFrame(() => gameLoop(players, keyboard, grid, context));
 }

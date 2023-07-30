@@ -1,17 +1,19 @@
+import Bomb from "./bomb.mjs";
+
 class Player{
     constructor(num, grid){
-        this._life = 1;
-        this._bombCount = 1;
-        this._velocity = 1;
+        this.life = 1;
+        this.bombCount = 1;
+        this.velocity = 1;
 
         switch(num){
             case 1:
-                this._x = 0;
-                this._y = 0;
+                this.x = 0;
+                this.y = 0;
                 break;
             case 2:
-                this._x = grid._width-1;
-                this._y = grid._height-1;
+                this.x = grid._width-1;
+                this.y = grid._height-1;
                 break;
         }
 
@@ -21,44 +23,48 @@ class Player{
     walk(direction, grid){
         switch (direction){
             case 'right':
-                if(this._x+1 != grid._width){
-                    if (grid._grid[this._x+1][this._y] == ' '){
-                    this._x++;
-                    grid.updatePlayerPosition(this._x-1, this._y, this._x, this._y);
+                if(this.x+1 != grid._width){
+                    if (grid.grid[this.x+1][this.y] == ' '){
+                        this.x++;
+                        grid.updatePlayerPosition(this.x-1, this.y, this.x, this.y);
                     }
                 }
                 break;
 
             case 'left':
-                if(this._x-1 >= 0){
-                    if (grid._grid[this._x-1][this._y] == ' '){
-                    this._x--;
-                    grid.updatePlayerPosition(this._x+1, this._y, this._x, this._y); 
+                if(this.x-1 >= 0){
+                    if (grid.grid[this.x-1][this.y] == ' '){
+                        this.x--;
+                        grid.updatePlayerPosition(this.x+1, this.y, this.x, this.y); 
                     } 
                 }
                 break;
 
             case 'up':
-                if(this._y-1 >= 0){
-                    if (grid._grid[this._x][this._y-1] == ' '){
-                        this._y--;
-                        grid.updatePlayerPosition(this._x, this._y+1, this._x, this._y); 
+                if(this.y-1 >= 0){
+                    if (grid.grid[this.x][this.y-1] == ' '){
+                        this.y--;
+                        grid.updatePlayerPosition(this.x, this.y+1, this.x, this.y); 
                     }  
                 }
                 break;
         
             case 'down':
-                if(this._y+1 != this._height)
-                if (grid._grid[this._x][this._y+1] == ' '){
-                    this._y++;
-                    grid.updatePlayerPosition(this._x, this._y-1, this._x, this._y); 
-                }  
+                if(this.y+1 != this._height){
+                    if (grid.grid[this.x][this.y+1] == ' '){
+                        this.y++;
+                        grid.updatePlayerPosition(this.x, this.y-1, this.x, this.y); 
+                    }
+                }
                 break;
         }
     }
 
-    putBomb(){
-
+    putBomb(grid){
+        if(this.bombCount > 0){
+            const bomb = new Bomb(this, grid);
+            this.bombCount--;
+        }
     }
     
     action(){
