@@ -35,32 +35,34 @@ class CheckInput {
     }
 
     inputMovement(players, grid) {
-      switch(this.lastKey){
-        case 'PRESS up':
-          players[0].walk('up', grid);
-          this.lastKey = null;
-          break;
-
-        case 'PRESS down':
-          players[0].walk('down', grid);
-          this.lastKey = null;
-          break;
-
-        case 'PRESS right':
-          players[0].walk('right', grid);
-          this.lastKey = null;
-          break;
-
-        case 'PRESS left':
-          players[0].walk('left', grid);
-          this.lastKey = null;
-          break;
-
-        case 'PRESS space':
-          players[0].putBomb(grid);
-          this.lastKey = null;
-          break;
-      }
+      if(players[0].life > 0){
+        switch(this.lastKey){
+          case 'PRESS up':
+            players[0].walk('up', grid);
+            this.lastKey = null;
+            break;
+  
+          case 'PRESS down':
+            players[0].walk('down', grid);
+            this.lastKey = null;
+            break;
+  
+          case 'PRESS right':
+            players[0].walk('right', grid);
+            this.lastKey = null;
+            break;
+  
+          case 'PRESS left':
+            players[0].walk('left', grid);
+            this.lastKey = null;
+            break;
+  
+          case 'PRESS space':
+            players[0].putBomb(grid);
+            this.lastKey = null;
+            break;
+        }
+      }  
     }
 
   }

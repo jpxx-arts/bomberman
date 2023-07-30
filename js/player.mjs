@@ -26,7 +26,7 @@ class Player{
                 break;
         }
 
-        grid.addPlayer(num);
+        grid.addPlayer(num, this);
     }
 
     walk(direction, grid){
@@ -67,6 +67,11 @@ class Player{
                 }
                 break;
         }
+    }
+
+    kill(grid){
+        this.life--;
+        grid.players.pop(this);
     }
 
     putBomb(grid){

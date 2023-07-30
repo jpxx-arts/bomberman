@@ -4,6 +4,7 @@ class Grid{
         this.height = height;
         this.grid = [];
         this.gridBlockLen = 1;
+        this.players = [];
         this.bombs = [];
 
         this.blocks = {
@@ -51,21 +52,25 @@ class Grid{
         }
     }
 
-    addPlayer(num){
+    addPlayer(num, player){
         switch (num){
             case 1:
+                this.players.push(player);
                 this.grid[0][0] = this.blocks.players[0];
                 break;
 
             case 2:
+                this.players.push(player);
                 this.grid[this.width - 1][this.height - 1] = this.blocks.players[1];
                 break;
 
             case 3:
+                this.players.push(player);
                 this.grid[this.width - 1][0] = this.blocks.players[2];
                 break;
 
             case 4:
+                this.players.push(player);
                 this.grid[0][this.height - 1] = this.blocks.players[3];
                 break;
         }

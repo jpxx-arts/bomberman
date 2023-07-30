@@ -3,10 +3,10 @@ import CheckInput from "./js/input.mjs";
 import Player from "./js/player.mjs";
 
 const grid = new Grid(13, 9);
-const p1 = new Player(1, grid);
-const p2 = new Player(2, grid);
-const p3 = new Player(3, grid);
-const p4 = new Player(4, grid);
+var p1 = new Player(1, grid);
+var p2 = new Player(2, grid);
+var p3 = new Player(3, grid);
+var p4 = new Player(4, grid);
 const players = [p1, p2, p3, p4];
 const keyboard = new CheckInput();
 
