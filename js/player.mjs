@@ -4,6 +4,7 @@ class Player{
     constructor(num, grid){
         this.life = 1;
         this.bombCount = 1;
+        this.explosionForce = 1;
         this.velocity = 1;
 
         switch(num){
@@ -12,8 +13,16 @@ class Player{
                 this.y = 0;
                 break;
             case 2:
-                this.x = grid._width-1;
-                this.y = grid._height-1;
+                this.x = grid.width-1;
+                this.y = grid.height-1;
+                break;
+            case 3:
+                this.x = 0;
+                this.y = grid.height-1;
+                break;
+            case 4:
+                this.x = grid.width-1;
+                this.y = 0;
                 break;
         }
 
@@ -23,7 +32,7 @@ class Player{
     walk(direction, grid){
         switch (direction){
             case 'right':
-                if(this.x+1 != grid._width){
+                if(this.x+1 != grid.width){
                     if (grid.grid[this.x+1][this.y] == ' '){
                         this.x++;
                         grid.updatePlayerPosition(this.x-1, this.y, this.x, this.y);
@@ -50,7 +59,7 @@ class Player{
                 break;
         
             case 'down':
-                if(this.y+1 != this._height){
+                if(this.y+1 != this.height){
                     if (grid.grid[this.x][this.y+1] == ' '){
                         this.y++;
                         grid.updatePlayerPosition(this.x, this.y-1, this.x, this.y); 
@@ -62,7 +71,7 @@ class Player{
 
     putBomb(grid){
         if(this.bombCount > 0){
-            const bomb = new Bomb(this, grid);
+            new Bomb(this, grid);
             this.bombCount--;
         }
     }
