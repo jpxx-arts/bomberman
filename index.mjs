@@ -7,8 +7,6 @@ const p1 = new Player(1, grid);
 const players = [p1];
 const keyboard = new CheckInput();
 
-p1.walk('right', grid);
-
 const screen = document.getElementById('gameWindow');
 const context = screen.getContext('2d');
 
