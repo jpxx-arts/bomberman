@@ -16,9 +16,11 @@ class Grid{
             explosion: '-',
         };
 
+        // Set the initial face of grid
         this.makeGrid();
     }
 
+    // Provides a random block, being an empty (with 20% of chance) or a brick (with 80% of chance)
     randomizeBlock(){
         const choose = Math.random();
 
@@ -30,19 +32,21 @@ class Grid{
     }
 
     makeGrid(){
+        // Iteration in lines
         for(let i = 0; i < this.width; i++){
+            // Iteration in columns
             let column = [];
             for(let j = 0; j < this.height; j++){
-                //Local of players 
+                // Local of players 
                 if((i == 0 && j == 0) || (i == 1 && j == 0) || (i == 0 && j == 1) || (i == 12 && j == 0) || (i == 11 && j == 0) || (i == 12 && j == 1) || (i == 0 && j == 8) || (i == 1 && j == 8) || (i == 0 && j == 7) || (i == 12 && j == 8) || (i == 11 && j == 8) || (i == 12 && j == 7)){
                     column.push(this.blocks.empty);
                 }
                 else{
-                    //Fixed Blocks
+                    // Fixed Blocks
                     if(i%2 != 0 && j%2 != 0){
                         column.push(this.blocks.block);
                     }
-                    //Blocks
+                    // Blocks
                     else{
                         column.push(this.randomizeBlock());
                     }
@@ -53,6 +57,7 @@ class Grid{
     }
 
     addPlayer(num, player){
+        // Adding players acording with each number
         switch (num){
             case 1:
                 this.players.push(player);
@@ -77,6 +82,7 @@ class Grid{
     }
 
     updatePlayerPosition(oldX, oldY, x, y){
+        // Replacement to empty
         if(this.grid[oldX][oldY] != this.blocks.bomb){
             this.grid[oldX][oldY] = this.blocks.empty;
         }
@@ -85,6 +91,7 @@ class Grid{
     }
 
     printGrid(){
+        // Print the grid in console
         for(let j = 0; j < this.height; j++){
             let row = '|';
             for(let i = 0; i < this.width; i++){
@@ -98,6 +105,7 @@ class Grid{
     runGrid(context){
         for(let i = 0; i < this.width; i++){
             for(let j = 0; j < this.height; j++){
+                // Represents the repective block in canvas
                 switch(this.grid[i][j]){
                     case this.blocks.empty:
                         context.fillStyle = 'green';
