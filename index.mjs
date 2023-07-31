@@ -20,7 +20,7 @@ function gameLoop(players, keyboard, grid, context){
     grid.runGrid(context);
     keyboard.inputMovement(players, grid);
     
-    // grid.printGrid();
+    // grid.printGrid(); if you want to see the grid on console
 
     requestAnimationFrame(() => gameLoop(players, keyboard, grid, context));
 }
