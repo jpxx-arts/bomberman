@@ -179,7 +179,7 @@ class Bomb{
         setTimeout(() => this.clearTail(player, grid), 200);
     }
 
-    bombPulse(){
+    bombPulse(player, grid, clock){
         if(this.colorNum+1 == this.colors.length){
             this.colorNum = 0;
         }else{
@@ -187,14 +187,15 @@ class Bomb{
         }
 
         this.color = this.colors[this.colorNum];
+
+        setTimeout(() => this.bombPulse(player, grid, clock-1), 700);
+        if(clock == 0){
+            this.explode(player, grid);
+        }
     }
 
     timeToExplode(player, grid){
-        // for(let i = 0; i < 3; i++){
-        //     setTimeout(() => this.bombPulse(), 1000);
-        // }
-
-        setTimeout(() => this.explode(player, grid), 1200);
+        setTimeout(() => this.bombPulse(player, grid, 2), 700);
     }
 }
 
