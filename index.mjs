@@ -8,7 +8,7 @@ var p2 = new Player(2, grid);
 var p3 = new Player(3, grid);
 var p4 = new Player(4, grid);
 const players = [p1, p2, p3, p4];
-const keyboard = new CheckInput();
+const keyboard = new CheckInput(players, grid);
 
 const screen = document.getElementById('gameWindow');
 const context = screen.getContext('2d');
@@ -16,15 +16,14 @@ const context = screen.getContext('2d');
 screen.width = grid.width;
 screen.height = grid.height;
 
-function gameLoop(players, keyboard, grid, context){
+function gameLoop(context){
     grid.runGrid(context);
-    keyboard.inputMovement(players, grid);
     
     // grid.printGrid(); if you want to see the grid on console
 
-    requestAnimationFrame(() => gameLoop(players, keyboard, grid, context));
+    requestAnimationFrame(() => gameLoop(context));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    gameLoop(players, keyboard, grid, context);
+    gameLoop(context);
 });
