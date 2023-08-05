@@ -16,64 +16,117 @@ class Bomb{
     }
 
     explode(player, grid){
+        let found = false;
+
         for(let block = 1; block <= player.explosionForce; block++){
             if(this.x+block < grid.width){
+                if(grid.matrix[this.x+block][this.y] == grid.blocks.block){
+                    break;
+                }
                 if(grid.matrix[this.x+block][this.y] == grid.blocks.brick){
-                    grid.matrix[this.x+block][this.y] = grid.blocks.empty;
+                    grid.matrix[this.x+block][this.y] = grid.blocks.explosion;
                     break;
                 }
-                if(grid.matrix[this.x+block][this.y] == grid.blocks.players[0] || grid.matrix[this.x+block][this.y] == grid.blocks.players[1] || grid.matrix[this.x+block][this.y] == grid.blocks.players[2] || grid.matrix[this.x+block][this.y] == grid.blocks.players[3]){
-                    player.kill(grid);
-                    grid.matrix[this.x+block][this.y] = grid.blocks.empty;
+                for(let player in grid.players){
+                    if(grid.matrix[this.x+block][this.y] == grid.blocks.players[player]){
+                        grid.players[player].kill();
+                        found = true;
+                        grid.matrix[this.x+block][this.y] = grid.blocks.explosion;
+                        break
+                    }
+                }
+                if(found){
+                    found = false;
                     break;
                 }
+
+                grid.matrix[this.x+block][this.y] = grid.blocks.explosion;
             }
             else{break;}
         }
+
         for(let block = 1; block <= player.explosionForce; block++){
             if(this.x-block >= 0){
+                if(grid.matrix[this.x-block][this.y] == grid.blocks.block){
+                    break;
+                }
                 if(grid.matrix[this.x-block][this.y] == grid.blocks.brick){
-                    grid.matrix[this.x-block][this.y] = grid.blocks.empty;
+                    grid.matrix[this.x-block][this.y] = grid.blocks.explosion;
                     break;
                 }
-                if(grid.matrix[this.x-block][this.y] == grid.blocks.players[0] || grid.matrix[this.x-block][this.y] == grid.blocks.players[1] || grid.matrix[this.x-block][this.y] == grid.blocks.players[2] || grid.matrix[this.x-block][this.y] == grid.blocks.players[3]){
-                    player.kill(grid);
-                    grid.matrix[this.x-block][this.y] = grid.blocks.empty;
+                for(let player in grid.players){
+                    if(grid.matrix[this.x-block][this.y] == grid.blocks.players[player]){
+                        grid.players[player].kill();
+                        found = false;
+                        grid.matrix[this.x-block][this.y] = grid.blocks.explosion;
+                        break
+                    }
+                }
+                if(found){
+                    found = false;
                     break;
                 }
+
+                grid.matrix[this.x-block][this.y] = grid.blocks.explosion;
             }
             else{break;}
         }
+
         for(let block = 1; block <= player.explosionForce; block++){
             if(this.y+1 < grid.height){
+                if(grid.matrix[this.x][this.y+block] == grid.blocks.block){
+                    break;
+                }
                 if(grid.matrix[this.x][this.y+block] == grid.blocks.brick){
-                    grid.matrix[this.x][this.y+block] = grid.blocks.empty;
+                    grid.matrix[this.x][this.y+block] = grid.blocks.explosion;
                     break;
                 }
-                if(grid.matrix[this.x][this.y+block] == grid.blocks.players[0] || grid.matrix[this.x][this.y+block] == grid.blocks.players[1] || grid.matrix[this.x][this.y+block] == grid.blocks.players[2] || grid.matrix[this.x][this.y+block] == grid.blocks.players[3]){
-                    player.kill(grid);
-                    grid.matrix[this.x][this.y+block] = grid.blocks.empty;
+                for(let player in grid.players){
+                    if(grid.matrix[this.x][this.y+block] == grid.blocks.players[player]){
+                        grid.players[player].kill();
+                        found = false;
+                        grid.matrix[this.x][this.y+block] = grid.blocks.explosion;
+                        break
+                    }
+                }
+                if(found){
+                    found = false;
                     break;
                 }
-            }
-            else{break;}
-        }
-        for(let block = 1; block <= player.explosionForce; block++){
-            if(this.y-1 >= 0){
-                if(grid.matrix[this.x][this.y-block] == grid.blocks.brick){
-                    grid.matrix[this.x][this.y-block] = grid.blocks.empty;
-                    break;
-                }
-                if(grid.matrix[this.x][this.y-block] == grid.blocks.players[0] || grid.matrix[this.x][this.y-block] == grid.blocks.players[1] || grid.matrix[this.x][this.y-block] == grid.blocks.players[2] || grid.matrix[this.x][this.y-block] == grid.blocks.players[3]){
-                    player.kill(grid);
-                    grid.matrix[this.x][this.y-block] = grid.blocks.empty;
-                    break;
-                }
+
+                grid.matrix[this.x][this.y+block] = grid.blocks.explosion;
             }
             else{break;}
         }
         
-        grid.matrix[this.x][this.y] = grid.blocks.empty
+        for(let block = 1; block <= player.explosionForce; block++){
+            if(this.y-1 >= 0){
+                if(grid.matrix[this.x][this.y-block] == grid.blocks.block){
+                    break;
+                }
+                if(grid.matrix[this.x][this.y-block] == grid.blocks.brick){
+                    grid.matrix[this.x][this.y-block] = grid.blocks.explosion;
+                    break;
+                }
+                for(let player in grid.players){
+                    if(grid.matrix[this.x][this.y-block] == grid.blocks.players[player]){
+                        grid.players[player].kill();
+                        found = false;
+                        grid.matrix[this.x][this.y-block] = grid.blocks.explosion;
+                        break
+                    }
+                }
+                if(found){
+                    found = false;
+                    break;
+                }
+
+                grid.matrix[this.x][this.y-block] = grid.blocks.explosion;
+            }
+            else{break;}
+        }
+        
+        grid.matrix[this.x][this.y] = grid.blocks.explosion
         player.bombCount++;
         
         delete this;

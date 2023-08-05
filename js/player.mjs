@@ -69,9 +69,8 @@ class Player{
         }
     }
 
-    kill(grid){
+    kill(){
         this.life--;
-        grid.players.pop(this);
     }
 
     putBomb(grid){
