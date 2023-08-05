@@ -32,40 +32,64 @@ class Player{
     walk(direction, grid){
         switch (direction){
             case 'right':
-                if(this.x+1 != grid.width){
-                    if (grid.matrix[this.x+1][this.y] == ' '){
+                if(this.x+this.velocity != grid.width){
+                    if(grid.matrix[this.x+this.velocity][this.y] == grid.blocks.empty){
                         this.x++;
-                        grid.updatePlayerPosition(this.x-1, this.y, this.x, this.y);
+                        grid.updatePlayerPosition(this.x-this.velocity, this.y, this.x, this.y);
+                        break;
+                    }
+
+                    if(grid.matrix[this.x+this.velocity][this.y] == grid.blocks.explosion){
+                        this.kill();
+                        [grid.matrixthis.x][this.y] = grid.blocks.empty;
+                        break;
                     }
                 }
-                break;
 
             case 'left':
-                if(this.x-1 >= 0){
-                    if (grid.matrix[this.x-1][this.y] == ' '){
+                if(this.x-this.velocity >= 0){
+                    if(grid.matrix[this.x-this.velocity][this.y] == grid.blocks.empty){
                         this.x--;
-                        grid.updatePlayerPosition(this.x+1, this.y, this.x, this.y); 
+                        grid.updatePlayerPosition(this.x+this.velocity, this.y, this.x, this.y); 
+                        break;
                     } 
-                }
-                break;
 
-            case 'up':
-                if(this.y-1 >= 0){
-                    if (grid.matrix[this.x][this.y-1] == ' '){
-                        this.y--;
-                        grid.updatePlayerPosition(this.x, this.y+1, this.x, this.y); 
-                    }  
-                }
-                break;
-        
-            case 'down':
-                if(this.y+1 != this.height){
-                    if (grid.matrix[this.x][this.y+1] == ' '){
-                        this.y++;
-                        grid.updatePlayerPosition(this.x, this.y-1, this.x, this.y); 
+                    if(grid.matrix[this.x-this.velocity][this.y] == grid.blocks.explosion){
+                        this.kill();
+                        grid.matrix[this.x][this.y] = grid.blocks.empty;
+                        break;
                     }
                 }
-                break;
+
+            case 'up':
+                if(this.y-this.velocity >= 0){
+                    if(grid.matrix[this.x][this.y-this.velocity] == grid.blocks.empty){
+                        this.y--;
+                        grid.updatePlayerPosition(this.x, this.y+this.velocity, this.x, this.y); 
+                        break;
+                    }  
+
+                    if(grid.matrix[this.x][this.y-this.velocity] == grid.blocks.explosion){
+                        this.kill();
+                        grid.matrix[this.x][this.y] = grid.blocks.empty;
+                        break;
+                    }
+                }
+        
+            case 'down':
+                if(this.y+this.velocity != this.height){
+                    if(grid.matrix[this.x][this.y+this.velocity] == grid.blocks.empty){
+                        this.y++;
+                        grid.updatePlayerPosition(this.x, this.y-this.velocity, this.x, this.y);
+                        break;
+                    }
+
+                    if(grid.matrix[this.x][this.y+this.velocity] == grid.blocks.explosion){
+                        this.kill();
+                        grid.matrix[this.x][this.y] = grid.blocks.empty;
+                        break;
+                    }
+                }
         }
     }
 

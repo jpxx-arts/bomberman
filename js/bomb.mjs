@@ -15,6 +15,48 @@ class Bomb{
         this.timeToExplode(player, grid);
     }
 
+    clearTail(player, grid){
+        for(let block = 0; block <= player.explosionForce; block++){
+            if(this.x+block < grid.width){
+                if(grid.matrix[this.x+block][this.y] == grid.blocks.explosion){
+                    grid.matrix[this.x+block][this.y] = grid.blocks.empty;
+                }
+                else{break;}
+            }
+            else{break;}
+        }
+
+        for(let block = 1; block <= player.explosionForce; block++){
+            if(this.x-block >= 0){
+                if(grid.matrix[this.x-block][this.y] == grid.blocks.explosion){
+                    grid.matrix[this.x-block][this.y] = grid.blocks.empty;
+                }
+                else{break;}
+            }
+            else{break;}
+        }
+
+        for(let block = 1; block <= player.explosionForce; block++){
+            if(this.y+block < grid.height){
+                if(grid.matrix[this.x][this.y+block] == grid.blocks.explosion){
+                    grid.matrix[this.x][this.y+block] = grid.blocks.empty;
+                }
+                else{break;}
+            }
+            else{break;}
+        }
+
+        for(let block = 1; block <= player.explosionForce; block++){
+            if(this.y-block >= 0){
+                if(grid.matrix[this.x][this.y-block] == grid.blocks.explosion){
+                    grid.matrix[this.x][this.y-block] = grid.blocks.empty;
+                }
+                else{break;}
+            }
+            else{break;}
+        }
+    }
+
     explode(player, grid){
         let found = false;
 
@@ -73,7 +115,7 @@ class Bomb{
         }
 
         for(let block = 1; block <= player.explosionForce; block++){
-            if(this.y+1 < grid.height){
+            if(this.y+block < grid.height){
                 if(grid.matrix[this.x][this.y+block] == grid.blocks.block){
                     break;
                 }
@@ -98,9 +140,9 @@ class Bomb{
             }
             else{break;}
         }
-        
+
         for(let block = 1; block <= player.explosionForce; block++){
-            if(this.y-1 >= 0){
+            if(this.y-block >= 0){
                 if(grid.matrix[this.x][this.y-block] == grid.blocks.block){
                     break;
                 }
@@ -126,10 +168,15 @@ class Bomb{
             else{break;}
         }
         
+        if(this.x == player.x && this.y == player.y){
+            player.kill();
+        }
+
         grid.matrix[this.x][this.y] = grid.blocks.explosion
         player.bombCount++;
         
         delete this;
+        setTimeout(() => this.clearTail(player, grid), 200);
     }
 
     bombPulse(){
@@ -147,7 +194,7 @@ class Bomb{
         //     setTimeout(() => this.bombPulse(), 1000);
         // }
 
-        setTimeout(() => this.explode(player, grid), 1000);
+        setTimeout(() => this.explode(player, grid), 1200);
     }
 }
 
