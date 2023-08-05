@@ -2,6 +2,7 @@ import Bomb from "./bomb.mjs";
 
 class Player{
     constructor(num, grid){
+        this.num = num;
         this.life = 1;
         this.bombCount = 1;
         this.explosionForce = 1;
@@ -35,7 +36,7 @@ class Player{
                 if(this.x+this.velocity != grid.width){
                     if(grid.matrix[this.x+this.velocity][this.y] == grid.blocks.empty){
                         this.x++;
-                        grid.updatePlayerPosition(this.x-this.velocity, this.y, this.x, this.y);
+                        grid.updatePlayerPosition(this.num, this.x-this.velocity, this.y, this.x, this.y);
                         break;
                     }
 
@@ -51,7 +52,7 @@ class Player{
                 if(this.x-this.velocity >= 0){
                     if(grid.matrix[this.x-this.velocity][this.y] == grid.blocks.empty){
                         this.x--;
-                        grid.updatePlayerPosition(this.x+this.velocity, this.y, this.x, this.y); 
+                        grid.updatePlayerPosition(this.num, this.x+this.velocity, this.y, this.x, this.y); 
                         break;
                     } 
 
@@ -67,7 +68,7 @@ class Player{
                 if(this.y-this.velocity >= 0){
                     if(grid.matrix[this.x][this.y-this.velocity] == grid.blocks.empty){
                         this.y--;
-                        grid.updatePlayerPosition(this.x, this.y+this.velocity, this.x, this.y); 
+                        grid.updatePlayerPosition(this.num, this.x, this.y+this.velocity, this.x, this.y); 
                         break;
                     }  
 
@@ -83,7 +84,7 @@ class Player{
                 if(this.y+this.velocity != this.height){
                     if(grid.matrix[this.x][this.y+this.velocity] == grid.blocks.empty){
                         this.y++;
-                        grid.updatePlayerPosition(this.x, this.y-this.velocity, this.x, this.y);
+                        grid.updatePlayerPosition(this.num, this.x, this.y-this.velocity, this.x, this.y);
                         break;
                     }
 

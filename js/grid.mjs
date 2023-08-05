@@ -81,13 +81,13 @@ class Grid{
         }
     }
 
-    updatePlayerPosition(oldX, oldY, x, y){
+    updatePlayerPosition(playerNum, oldX, oldY, x, y){
         // Replacement to empty
         if(this.matrix[oldX][oldY] != this.blocks.bomb){
             this.matrix[oldX][oldY] = this.blocks.empty;
         }
 
-        this.matrix[x][y] = this.blocks.players[0];
+        this.matrix[x][y] = this.blocks.players[playerNum-1];
     }
 
     printGrid(){
