@@ -41,10 +41,11 @@ class Player{
 
                     if(grid.matrix[this.x+this.velocity][this.y] == grid.blocks.explosion){
                         this.kill();
-                        [grid.matrixthis.x][this.y] = grid.blocks.empty;
+                        grid.matrix[this.x][this.y] = grid.blocks.empty;
                         break;
                     }
                 }
+                break;
 
             case 'left':
                 if(this.x-this.velocity >= 0){
@@ -60,6 +61,7 @@ class Player{
                         break;
                     }
                 }
+                break;
 
             case 'up':
                 if(this.y-this.velocity >= 0){
@@ -75,6 +77,7 @@ class Player{
                         break;
                     }
                 }
+                break;
         
             case 'down':
                 if(this.y+this.velocity != this.height){
@@ -90,6 +93,7 @@ class Player{
                         break;
                     }
                 }
+                break;
         }
     }
 
