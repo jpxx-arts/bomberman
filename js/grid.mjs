@@ -2,7 +2,7 @@ class Grid{
     constructor(width, height){
         this.width = width;
         this.height = height;
-        this.grid = [];
+        this.matrix = [];
         this.gridBlockLen = 1;
         this.players = [];
         this.bombs = [];
@@ -16,7 +16,7 @@ class Grid{
             explosion: '-',
         };
 
-        // Set the initial face of grid
+        // Set the initial face of matrix
         this.makeGrid();
     }
 
@@ -52,7 +52,7 @@ class Grid{
                     }
                 }
             }
-            this.grid.push(column);
+            this.matrix.push(column);
         }
     }
 
@@ -61,41 +61,41 @@ class Grid{
         switch (num){
             case 1:
                 this.players.push(player);
-                this.grid[0][0] = this.blocks.players[0];
+                this.matrix[0][0] = this.blocks.players[0];
                 break;
 
             case 2:
                 this.players.push(player);
-                this.grid[this.width - 1][this.height - 1] = this.blocks.players[1];
+                this.matrix[this.width - 1][this.height - 1] = this.blocks.players[1];
                 break;
 
             case 3:
                 this.players.push(player);
-                this.grid[this.width - 1][0] = this.blocks.players[2];
+                this.matrix[this.width - 1][0] = this.blocks.players[2];
                 break;
 
             case 4:
                 this.players.push(player);
-                this.grid[0][this.height - 1] = this.blocks.players[3];
+                this.matrix[0][this.height - 1] = this.blocks.players[3];
                 break;
         }
     }
 
     updatePlayerPosition(oldX, oldY, x, y){
         // Replacement to empty
-        if(this.grid[oldX][oldY] != this.blocks.bomb){
-            this.grid[oldX][oldY] = this.blocks.empty;
+        if(this.matrix[oldX][oldY] != this.blocks.bomb){
+            this.matrix[oldX][oldY] = this.blocks.empty;
         }
 
-        this.grid[x][y] = this.blocks.players[0];
+        this.matrix[x][y] = this.blocks.players[0];
     }
 
     printGrid(){
-        // Print the grid in console
+        // Print the matrix in console
         for(let j = 0; j < this.height; j++){
             let row = '|';
             for(let i = 0; i < this.width; i++){
-                row += this.grid[i][j];
+                row += this.matrix[i][j];
             }
             row += '|';
             console.log(row);
@@ -106,7 +106,7 @@ class Grid{
         for(let i = 0; i < this.width; i++){
             for(let j = 0; j < this.height; j++){
                 // Represents the repective block in canvas
-                switch(this.grid[i][j]){
+                switch(this.matrix[i][j]){
                     case this.blocks.empty:
                         context.fillStyle = 'green';
                         context.fillRect(i, j, 1, 1);
@@ -150,6 +150,7 @@ class Grid{
                                 break;
                             }
                         }
+                        break;
 
                     case this.blocks.explosion:
                         context.fillStyle = 'orange';

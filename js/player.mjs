@@ -33,7 +33,7 @@ class Player{
         switch (direction){
             case 'right':
                 if(this.x+1 != grid.width){
-                    if (grid.grid[this.x+1][this.y] == ' '){
+                    if (grid.matrix[this.x+1][this.y] == ' '){
                         this.x++;
                         grid.updatePlayerPosition(this.x-1, this.y, this.x, this.y);
                     }
@@ -42,7 +42,7 @@ class Player{
 
             case 'left':
                 if(this.x-1 >= 0){
-                    if (grid.grid[this.x-1][this.y] == ' '){
+                    if (grid.matrix[this.x-1][this.y] == ' '){
                         this.x--;
                         grid.updatePlayerPosition(this.x+1, this.y, this.x, this.y); 
                     } 
@@ -51,7 +51,7 @@ class Player{
 
             case 'up':
                 if(this.y-1 >= 0){
-                    if (grid.grid[this.x][this.y-1] == ' '){
+                    if (grid.matrix[this.x][this.y-1] == ' '){
                         this.y--;
                         grid.updatePlayerPosition(this.x, this.y+1, this.x, this.y); 
                     }  
@@ -60,7 +60,7 @@ class Player{
         
             case 'down':
                 if(this.y+1 != this.height){
-                    if (grid.grid[this.x][this.y+1] == ' '){
+                    if (grid.matrix[this.x][this.y+1] == ' '){
                         this.y++;
                         grid.updatePlayerPosition(this.x, this.y-1, this.x, this.y); 
                     }
