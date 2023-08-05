@@ -19,7 +19,7 @@ screen.height = grid.height;
 function gameLoop(context){
     grid.runGrid(context);
     
-    // grid.printGrid(); if you want to see the grid on console
+    // grid.printGrid(); // if you want to see the grid on console
 
     requestAnimationFrame(() => gameLoop(context));
 }
